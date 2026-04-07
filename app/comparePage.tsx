@@ -11,7 +11,7 @@ export default function comparePage() {
         </View>
 
         <View style={styles.imageContainer}>
-            <Text style={styles.dateText}>asd</Text>
+            <Text style={styles.dateText}>MONTH</Text>
 
             <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
 
@@ -22,7 +22,7 @@ export default function comparePage() {
 
         </View>
         <ImageCarousel>
-            
+
         </ImageCarousel>
     </View>
   )

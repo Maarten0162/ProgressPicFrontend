@@ -4,13 +4,14 @@ import ListItem from './ListItem'
 
 interface Props {
   children: ReactNode;
+  date: Date;
 }
 
-export default function ListContainer({ children }: Props) {
+export default function ListContainer({ children, date }: Props) {
   return (
     <View>
 
-        <Text style={styles.Text}>Month Year</Text>
+        <Text style={styles.Text}>{date.toLocaleDateString(undefined, { month: "long", year: "numeric" })}</Text>
         
         {children}
     </View>

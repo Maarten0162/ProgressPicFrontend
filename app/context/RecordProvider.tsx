@@ -85,6 +85,15 @@ const tempRecords: RecordEntry[] = [
       { id: 11, imageId: "img-011", imageUrl: "https://picsum.photos/400?random=11", type: "FRONT" },
     ],
   },
+  {
+    id: 6,
+    createdAt: "2026-03-05T08:45:00Z",
+    date: "2026-03-05",
+    userUUID: "user-1234",
+    images: [
+      { id: 11, imageId: "img-011", imageUrl: "https://picsum.photos/400?random=12", type: "FRONT" },
+    ],
+  },
 ];
 
 

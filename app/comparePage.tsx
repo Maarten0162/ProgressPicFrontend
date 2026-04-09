@@ -6,12 +6,16 @@ import SegmentedControl from './components/SegmentedControll/SegmentedControl'
 import { RecordEntry } from './context/RecordProvider'
 import { useRecords } from './hooks/useRecords'
 import { ViewType } from './context/RecordProvider'
+import Svg, { Path } from 'react-native-svg'
+import { Href, router, usePathname } from 'expo-router'
+import { useLocalSearchParams } from "expo-router";
 
 export default function comparePage() {
   const { records } = useRecords();
+  const { multiviewParam } = useLocalSearchParams();
   
   const [viewType, setViewType] = useState<ViewType>("FRONT");
-  const [Multiview, toggleMultiview] = useState(false);
+  const [Multiview, toggleMultiview] = useState(multiviewParam === "true");
   const [SelectedImageIndex, setSelectedImageIndex] = useState<0 | 1>(0);
 
 
@@ -36,10 +40,32 @@ export default function comparePage() {
       setSelectedImageTwo(records[1] ?? null);
     }
   }, [records]);
+
+  const pathname = usePathname();
+      
+  function changePage(pageString: Href) {
+    if (pathname !== pageString) {
+      router.push(pageString);
+    }
+  }
+        
   return (
     <View style={styles.container}>
-
       <View style={styles.HeaderContainer}>
+        <Pressable style={styles.backButton} onPress={() => changePage("/")}>
+          <View style={styles.backArrow}>
+            <Svg viewBox="0 0 24 24" width="32" height="32" fill="none">
+              <Path
+                d="M15 6L9 12L15 18"
+                stroke="#ffffff"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </Svg>
+          </View>
+        </Pressable>
+
         <SegmentedControl onSwitchView={setViewType}/>
       </View>
 
@@ -54,7 +80,7 @@ export default function comparePage() {
                 "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
                 }} 
 
-                style={styles.multiImage}
+                style={SelectedImageIndex == 0 ? styles.selectedMultiImage : styles.multiImage}
               />
             </Pressable>
             <View>
@@ -83,7 +109,7 @@ export default function comparePage() {
                 "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
                 }} 
 
-                style={styles.multiImage}
+                style={SelectedImageIndex == 1 ? styles.selectedMultiImage : styles.multiImage}
               />
             </Pressable>
             <View>
@@ -190,11 +216,19 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     margin: 20
   },
-  multiImage: {
+  selectedMultiImage: {
     width: Platform.OS === "web" ? 250 : "40%",
     aspectRatio: 1,
     borderRadius: Platform.OS === "web" ? 15 : 45,
     borderColor: "lightgray",
+    borderWidth: 4,
+    margin: 10
+  },
+  multiImage: {
+    width: Platform.OS === "web" ? 250 : "40%",
+    aspectRatio: 1,
+    borderRadius: Platform.OS === "web" ? 15 : 45,
+    borderColor: "transparent",
     borderWidth: 4,
     margin: 10
   },
@@ -223,4 +257,20 @@ const styles = StyleSheet.create({
     height: 100,
     margin: 1,
   },
+  backArrow: {
+  borderRadius: 100,
+  backgroundColor: "#333333",
+  padding: 5,
+  justifyContent: "center",
+  alignItems: "center",
+},
+  backArrowIcon: {
+    alignSelf: "center"
+  },
+  backButton: {
+  position: "absolute",
+  left: 16,
+  top: 16,
+  zIndex: 10,
+}
 });

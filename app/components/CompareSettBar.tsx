@@ -21,8 +21,15 @@ export default function CompareSettBar({ Multiview, toggleMultiview} : Props) {
         <Pressable onPress={() => toggleMultiview(!Multiview)}>
             <View style={styles.multipleToggle}>
                 {Multiview ? (
-                    <Svg fill="none" viewBox="0 0 24 24" id="Square-Fill--Streamline-Rounded-Fill-Material" height="32" width="32">
-                        <Path fill="#ffffff" d="M4.5 21c-0.416665 0 -0.770835 -0.14585 -1.0625 -0.4375C3.145835 20.27085 3 19.91665 3 19.5V4.5c0 -0.416665 0.145835 -0.770835 0.4375 -1.0625C3.729165 3.145835 4.083335 3 4.5 3h15c0.41665 0 0.77085 0.145835 1.0625 0.4375C20.85415 3.729165 21 4.083335 21 4.5v15c0 0.41665 -0.14585 0.77085 -0.4375 1.0625 -0.29165 0.29165 -0.64585 0.4375 -1.0625 0.4375H4.5Z" strokeWidth="0.5"></Path>
+                    <Svg viewBox="0 0 24 24" width="32" height="32" fill="none">
+                        <Rect
+                            x="4"
+                            y="3"
+                            width="16"
+                            height="18"
+                            rx="2"
+                            fill="#ffffff"
+                        />
                     </Svg>
 
                     ) : (
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
     },
     multipleToggle: {
         borderRadius: 100,
-        backgroundColor: "#f30000aa",
+        backgroundColor: "#333333",
         padding: 10
     }
 })

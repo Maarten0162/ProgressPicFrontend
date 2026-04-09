@@ -1,78 +1,30 @@
-import React from 'react'
-import { ScrollView, Image, StyleSheet } from 'react-native'
+import React, { ReactNode, useEffect, useRef } from 'react';
+import { ScrollView, Image, StyleSheet, View } from 'react-native';
 
-export default function ImageCarousel() {
-  return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        <Image source={{ uri: "https://placehold.co/400" }} style={styles.image} />
-        
-    </ScrollView>
-  )
+interface Props {
+  children: ReactNode;
+  
 }
 
-const styles = StyleSheet.create({
+export default function ImageCarousel( {children} : Props) {
+  const scrollRef = useRef<ScrollView>(null);
 
-  image: {
-    width: 100,
-    height: 100,
-    margin: 1
-  }
-})
+  useEffect(() => {
+    scrollRef.current?.scrollToEnd({ animated: false });
+  }, []);
+
+  return (
+    <View>
+      <ScrollView
+        ref={scrollRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ flexDirection: 'row' }}
+        style={{ height: 120 }}
+      >
+        {children}
+      </ScrollView>
+    </View>
+  );
+}
+

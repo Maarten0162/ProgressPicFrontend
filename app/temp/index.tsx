@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, ScrollView } from "react-native";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Image, ScrollView, Text, View } from "react-native";
+import { RecordEntry } from "../context/RecordProvider";
 
-interface ImageEntity {
-  id: number;
-  imageId: string;
-  imageUrl: string;
-  type: "FRONT" | "BACK" | "SIDE";
-}
-
-interface RecordEntry {
-  id: number;
-  createdAt: string;
-  date: string;
-  images: ImageEntity[];
-  userUUID: string;
-}
 
 export default function index() {
   const [progressEntries, setProgressEntries] = useState<RecordEntry[]>([]);

@@ -1,10 +1,15 @@
+import { ViewType } from "@/app/context/RecordProvider";
 import React, { useRef, useState } from "react";
 import { View, Text, Pressable, StyleSheet, Animated } from "react-native";
 
-const options = ["FRONT", "SIDE", "BACK"];
+const options = ["FRONT", "SIDE", "BACK"] as ViewType[];;
 const WIDTH = 300; // total width of the control
 
-export default function SegmentedControl() {
+type Props = {
+  onSwitchView: (type: ViewType) => void; // function type
+};
+
+export default function SegmentedControl({ onSwitchView }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -12,6 +17,7 @@ export default function SegmentedControl() {
 
   const handlePress = (index: number) => {
     setSelectedIndex(index);
+    onSwitchView(options[index])
 
     Animated.timing(translateX, {
       toValue: index * segmentWidth,
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     alignItems: "center",
-    zIndex: 1, // keep text above slider
+    zIndex: 1,
   },
 
   slider: {

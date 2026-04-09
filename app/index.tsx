@@ -25,22 +25,24 @@ export default function Index() {
     }, {} as Record<string, RecordEntry[]>);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <>
         <Header/>
-        {Object.entries(groupedRecords).map(([key, recordsInMonth]) => {
-            const [year, month] = key.split("-");
-            const date = new Date(Number(year), Number(month));
+        <ScrollView showsVerticalScrollIndicator={false}>
+            {Object.entries(groupedRecords).map(([key, recordsInMonth]) => {
+                const [year, month] = key.split("-");
+                const date = new Date(Number(year), Number(month));
 
-            return (
-                <ListContainer date={date} key={key}>
-                {recordsInMonth.map(record =>
-                    <ListItem record={record} key={record.id} />
-                    
-                )}
-                </ListContainer>
-            );
-            })}
-    </ScrollView>
+                return (
+                    <ListContainer date={date} key={key}>
+                    {recordsInMonth.map(record =>
+                        <ListItem record={record} key={record.id} />
+                        
+                    )}
+                    </ListContainer>
+                );
+                })}
+        </ScrollView>
+    </>
   );
 }
 

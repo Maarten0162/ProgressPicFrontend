@@ -91,10 +91,10 @@ const tempRecords: RecordEntry[] = [
     date: "2026-03-05",
     userUUID: "user-1234",
     images: [
-      { id: 11, imageId: "img-011", imageUrl: "https://picsum.photos/400?random=12", type: "FRONT" },
+      { id: 12, imageId: "img-012", imageUrl: "https://picsum.photos/400?random=12", type: "FRONT" },
     ],
   },
-];
+];  
 
 
 export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -105,7 +105,15 @@ export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // const response = await axios.get<RecordEntry[]>(
       //   "http://localhost:8080/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
       // );
-      setRecords(tempRecords); // Axios already parses JSON
+      
+      setRecords(tempRecords.sort((a, b) => {
+        // Convert date strings to timestamps
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+
+        // Descending: latest date first
+        return dateB - dateA;
+      }));
     } catch (error) {
       console.error("Failed to fetch records", error);
     }

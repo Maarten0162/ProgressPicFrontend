@@ -9,7 +9,13 @@ import { ViewType } from './context/RecordProvider'
 
 export default function comparePage() {
   const { records } = useRecords();
+  
   const [viewType, setViewType] = useState<ViewType>("FRONT");
+  const [Multiview, toggleMultiview] = useState(false);
+  const [SelectedImageIndex, setSelectedImageIndex] = useState<0 | 1>(0);
+
+
+  
 
   const images = records.flatMap(record =>
     record.images.filter(img => img.type === viewType)
@@ -17,6 +23,12 @@ export default function comparePage() {
   
   const [SelectedImageOne, setSelectedImageOne] = useState<RecordEntry | null>(null);
   const [SelectedImageTwo, setSelectedImageTwo] = useState<RecordEntry | null>(null);
+
+  function setSelectedImage(record : RecordEntry) {
+    if (SelectedImageIndex == 0 || !Multiview) {
+      setSelectedImageOne(record);
+    } else setSelectedImageTwo(record);
+  }
 
   useEffect(() => {
     if (records.length > 0) {
@@ -31,30 +43,95 @@ export default function comparePage() {
         <SegmentedControl onSwitchView={setViewType}/>
       </View>
 
+      {Multiview ? (
+        <View >
+          {/* Image ONE */}
+          <View style={styles.multiImageContainer}>
+            
+            <Pressable onPress={() => setSelectedImageIndex(0)}>
+              <Image
+                source={{ uri: SelectedImageOne?.images.find(img => img.type === viewType)?.imageUrl ??
+                "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
+                }} 
 
-      <View style={styles.imageContainer}>
-        <Text style={styles.dateText}>{ 
-          SelectedImageOne ? new Date(SelectedImageOne.date).toLocaleDateString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })
-          : "Date ERROR"}
-        </Text>
+                style={styles.multiImage}
+              />
+            </Pressable>
+            <View>
+                <Text style={styles.dateText}>{ 
+                SelectedImageOne ? new Date(SelectedImageOne.date).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                : "Date ERROR"}
+              </Text>
 
-        <Image
-          source={{ uri: SelectedImageOne?.images.find(img => img.type === viewType)?.imageUrl ??
-          "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
-          }} 
+              <View style={styles.KeyValueTextContainer}>
+                <Text style={styles.keyText}>Scale Weight: </Text>
+                <Text style={styles.valueText}>90.1 kg</Text>
+              </View>
+            </View>
+            
+          </View>
+              
+        {/* Image TWO */}
+        <View style={styles.multiImageContainer}>
+            <Pressable onPress={() => setSelectedImageIndex(1)}>
+              <Image
+                source={{ uri: SelectedImageTwo?.images.find(img => img.type === viewType)?.imageUrl ??
+                "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
+                }} 
 
-          style={styles.image}
-        />
+                style={styles.multiImage}
+              />
+            </Pressable>
+            <View>
+                <Text style={styles.dateText}>{ 
+                SelectedImageTwo ? new Date(SelectedImageTwo.date).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                : "Date ERROR"}
+              </Text>
 
-        <View style={styles.KeyValueTextContainer}>
-          <Text style={styles.keyText}>Scale Weight: </Text>
-          <Text style={styles.valueText}>90.1 kg</Text>
+              <View style={styles.KeyValueTextContainer}>
+                <Text style={styles.keyText}>Scale Weight: </Text>
+                <Text style={styles.valueText}>90.1 kg</Text>
+              </View>
+            </View>
+            
+          </View>
         </View>
-      </View>
+        
+      ) : (
+        <View style={styles.imageContainer}>
+            <Text style={styles.dateText}>{ 
+              SelectedImageOne ? new Date(SelectedImageOne.date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })
+              : "Date ERROR"}
+            </Text>
+
+            <Image
+              source={{ uri: SelectedImageOne?.images.find(img => img.type === viewType)?.imageUrl ??
+              "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
+              }} 
+
+              style={styles.image}
+            />
+
+            <View style={styles.KeyValueTextContainer}>
+              <Text style={styles.keyText}>Scale Weight: </Text>
+              <Text style={styles.valueText}>90.1 kg</Text>
+            </View>
+          </View>
+      )}
+
+      
 
 
       <View style={styles.BottomBar}>
@@ -65,7 +142,7 @@ export default function comparePage() {
                 .map(img => (
                   <Pressable
                     key={img.id}
-                    onPress={() => setSelectedImageOne(record)}
+                    onPress={() => setSelectedImage(record)}
                   >
               <Image
               key={img.id}
@@ -76,7 +153,7 @@ export default function comparePage() {
             
           )))}
         </ImageCarousel>
-        <CompareSettBar />
+        <CompareSettBar Multiview={Multiview} toggleMultiview={toggleMultiview} />
       </View>
     </View>
   );
@@ -99,17 +176,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 16,
   },
+  multiImageContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+  },
   image: {
     width: Platform.OS === "web" ? 500 : "80%",
     aspectRatio: 1,
     borderRadius: Platform.OS === "web" ? 15 : 45,
     borderColor: "lightgray",
     borderWidth: 4,
+    margin: 20
+  },
+  multiImage: {
+    width: Platform.OS === "web" ? 250 : "40%",
+    aspectRatio: 1,
+    borderRadius: Platform.OS === "web" ? 15 : 45,
+    borderColor: "lightgray",
+    borderWidth: 4,
+    margin: 10
   },
   dateText: {
     fontSize: 24,
     color: "white",
-    marginBottom: 15,
+    fontWeight: "bold"
   },
   keyText: {
     fontSize: 18,
@@ -122,7 +214,6 @@ const styles = StyleSheet.create({
   },
   KeyValueTextContainer: {
     flexDirection: "row",
-    marginTop: 20,
   },
   BottomBar: {
     padding: 10,

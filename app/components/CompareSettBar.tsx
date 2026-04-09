@@ -2,8 +2,13 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Pressable } from 'react-native'
 import Svg, { Rect, Path } from "react-native-svg";
 
-export default function CompareSettBar() {
-    const [Multiview, toggleMultiview] = useState(false);
+type Props = {
+    Multiview : boolean;
+    toggleMultiview: (value: boolean) => void;
+
+};
+
+export default function CompareSettBar({ Multiview, toggleMultiview} : Props) {
     
   return (
     <View style={styles.container}>

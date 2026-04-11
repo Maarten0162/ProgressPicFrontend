@@ -4,7 +4,11 @@ import { Calendar } from "react-native-calendars";
 import CustomCalendar from "./CustomCalendar";
 import Svg, { Path } from "react-native-svg";
 
-export default function AddRecordHeader() {
+interface Props {
+ setOpenUpload: (record: boolean) => void;
+}
+
+export default function AddRecordHeader( {setOpenUpload} : Props) {
 
   const today = new Date().toISOString().split("T")[0];;
   
@@ -23,7 +27,7 @@ export default function AddRecordHeader() {
 
   return (
     <View style={styles.container}>
-        <Pressable>
+        <Pressable onPress={() => setOpenUpload(false)}>
             <Svg fill="none" viewBox="0 0 24 24" id="Close-Fill--Streamline-Rounded-Fill-Material" height="32" width="32">
                 <Path fill="white" d="m12 13.0501 -5.25 5.25c-0.15 0.15 -0.325 0.225 -0.525 0.225s-0.375 -0.075 -0.525 -0.225c-0.15 -0.15 -0.225 -0.325 -0.225 -0.525s0.075 -0.375 0.225 -0.525l5.25 -5.25 -5.25 -5.25c-0.15 -0.15 -0.225 -0.325 -0.225 -0.525s0.075 -0.375 0.225 -0.525c0.15 -0.15 0.325 -0.225 0.525 -0.225s0.375 0.075 0.525 0.225l5.25 5.25 5.25 -5.25c0.15 -0.15 0.325 -0.225 0.525 -0.225s0.375 0.075 0.525 0.225c0.15 0.15 0.225 0.325 0.225 0.525s-0.075 0.375 -0.225 0.525l-5.25 5.25 5.25 5.25c0.15 0.15 0.225 0.325 0.225 0.525s-0.075 0.375 -0.225 0.525c-0.15 0.15 -0.325 0.225 -0.525 0.225s-0.375 -0.075 -0.525 -0.225l-5.25 -5.25Z" strokeWidth="0.5"></Path>
             </Svg>

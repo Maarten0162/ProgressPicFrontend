@@ -8,12 +8,13 @@ export interface ImageEntity {
   imageId: string;
   imageUrl: string;
   type: ViewType;
+  isLocal: boolean;
 }
 
 export type ViewType = "FRONT" | "BACK" | "SIDE";
 
 export interface RecordEntry {
-  id: number;
+  id: number | undefined;
   createdAt: string;
   date: string;
   images: ImageEntity[];
@@ -40,9 +41,9 @@ const tempRecords: RecordEntry[] = [
     date: "2026-04-01",
     userUUID: "user-1234",
     images: [
-      { id: 1, imageId: "img-001", imageUrl: "https://picsum.photos/400?random=1", type: "FRONT" },
-      { id: 2, imageId: "img-002", imageUrl: "https://picsum.photos/400?random=2", type: "SIDE" },
-      { id: 3, imageId: "img-003", imageUrl: "https://picsum.photos/400?random=3", type: "BACK" },
+      { id: 1, imageId: "img-001", imageUrl: "https://picsum.photos/400?random=1", type: "FRONT", isLocal: false },
+      { id: 2, imageId: "img-002", imageUrl: "https://picsum.photos/400?random=2", type: "SIDE", isLocal: false },
+      { id: 3, imageId: "img-003", imageUrl: "https://picsum.photos/400?random=3", type: "BACK", isLocal: false },
     ],
   },
   {
@@ -51,8 +52,8 @@ const tempRecords: RecordEntry[] = [
     date: "2026-04-02",
     userUUID: "user-1234",
     images: [
-      { id: 4, imageId: "img-004", imageUrl: "https://picsum.photos/400?random=4", type: "FRONT" },
-      { id: 5, imageId: "img-005", imageUrl: "https://picsum.photos/400?random=5", type: "SIDE" },
+      { id: 4, imageId: "img-004", imageUrl: "https://picsum.photos/400?random=4", type: "FRONT", isLocal: false },
+      { id: 5, imageId: "img-005", imageUrl: "https://picsum.photos/400?random=5", type: "SIDE", isLocal: false },
     ],
   },
   {
@@ -61,8 +62,8 @@ const tempRecords: RecordEntry[] = [
     date: "2026-04-03",
     userUUID: "user-1234",
     images: [
-      { id: 6, imageId: "img-006", imageUrl: "https://picsum.photos/400?random=6", type: "FRONT" },
-      { id: 7, imageId: "img-007", imageUrl: "https://picsum.photos/400?random=7", type: "BACK" },
+      { id: 6, imageId: "img-006", imageUrl: "https://picsum.photos/400?random=6", type: "FRONT", isLocal: false },
+      { id: 7, imageId: "img-007", imageUrl: "https://picsum.photos/400?random=7", type: "BACK", isLocal: false },
     ],
   },
   {
@@ -71,9 +72,9 @@ const tempRecords: RecordEntry[] = [
     date: "2026-04-04",
     userUUID: "user-1234",
     images: [
-      { id: 8, imageId: "img-008", imageUrl: "https://picsum.photos/400?random=8", type: "FRONT" },
-      { id: 9, imageId: "img-009", imageUrl: "https://picsum.photos/400?random=9", type: "SIDE" },
-      { id: 10, imageId: "img-010", imageUrl: "https://picsum.photos/400?random=10", type: "BACK" },
+      { id: 8, imageId: "img-008", imageUrl: "https://picsum.photos/400?random=8", type: "FRONT", isLocal: false },
+      { id: 9, imageId: "img-009", imageUrl: "https://picsum.photos/400?random=9", type: "SIDE", isLocal: false },
+      { id: 10, imageId: "img-010", imageUrl: "https://picsum.photos/400?random=10", type: "BACK", isLocal: false },
     ],
   },
   {
@@ -82,7 +83,7 @@ const tempRecords: RecordEntry[] = [
     date: "2026-04-05",
     userUUID: "user-1234",
     images: [
-      { id: 11, imageId: "img-011", imageUrl: "https://picsum.photos/400?random=11", type: "FRONT" },
+      { id: 11, imageId: "img-011", imageUrl: "https://picsum.photos/400?random=11", type: "FRONT", isLocal: false },
     ],
   },
   {
@@ -91,7 +92,7 @@ const tempRecords: RecordEntry[] = [
     date: "2026-03-05",
     userUUID: "user-1234",
     images: [
-      { id: 12, imageId: "img-012", imageUrl: "https://picsum.photos/400?random=12", type: "FRONT" },
+      { id: 12, imageId: "img-012", imageUrl: "https://picsum.photos/400?random=12", type: "FRONT", isLocal: false },
     ],
   },
 ];  

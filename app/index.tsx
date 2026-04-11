@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Pressable, Alert, StyleSheet, Button, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable, Alert, StyleSheet, Button, ScrollView, Modal } from 'react-native';
 import Header from './components/header';
 import ListItem from './components/ListItem';
 import ListContainer from './components/ListContainer';
@@ -10,6 +10,9 @@ import AddRecordPanel from './components/AddRecord/AddRecordPanel';
 export default function Index() {
 
     const { records, addRecord } = useRecords();
+
+    const [open, setOpen] = useState(false);
+    
 
     const groupedRecords = records.reduce((acc, record) => {
         const date = new Date(record.date);
@@ -27,7 +30,7 @@ export default function Index() {
 
   return (
     <>
-        <Header/>
+        <Header setOpen={setOpen}/>
         <ScrollView showsVerticalScrollIndicator={false}>
             {Object.entries(groupedRecords).map(([key, recordsInMonth]) => {
                 const [year, month] = key.split("-");
@@ -43,13 +46,33 @@ export default function Index() {
                 );
                 })}
         </ScrollView>
-        <AddRecordPanel Record={undefined}/>
+
+        <Modal visible={open} transparent animationType="slide">
+            <View style={styles.modalOverlay}>
+                <View style={styles.modalContent}>
+                    <AddRecordPanel setOpen={setOpen} initialRecord={undefined} />
+                </View>
+            </View>
+        </Modal>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-    Container: {
-        padding: 20
-    }
-})
+  Container: {
+    padding: 20,
+  },
+
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  
+  modalContent: {
+    backgroundColor: "#111",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+  },
+});

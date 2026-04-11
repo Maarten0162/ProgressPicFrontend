@@ -3,8 +3,11 @@ import React from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Rect, Path } from "react-native-svg";
 
+interface Props {
+  setOpen: (value: boolean) => void;
+}
 
-export default function Header() {
+export default function Header({setOpen} : Props) {
     const pathname = usePathname();
     
       function changePage(pageString: Href) {
@@ -15,7 +18,7 @@ export default function Header() {
   return (
     <View style={styles.header}>
           <Text style={styles.centered}>Progress Photos</Text>
-          <Pressable style={styles.plusContainer} onPress={() => Alert.alert("Clicked!")}>
+          <Pressable style={styles.plusContainer} onPress={() => setOpen(true)}>
             <Text style={styles.clickableText}>+</Text>
           </Pressable>
           <View style={styles.buttonContainer}>

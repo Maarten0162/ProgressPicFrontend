@@ -5,6 +5,7 @@ import ListItem from './components/ListItem';
 import ListContainer from './components/ListContainer';
 import { useRecords } from './hooks/useRecords';
 import { RecordEntry } from './context/RecordProvider';
+import AddRecordPanel from './components/AddRecord/AddRecordPanel';
 
 export default function Index() {
 
@@ -42,6 +43,7 @@ export default function Index() {
                 );
                 })}
         </ScrollView>
+        <AddRecordPanel Record={undefined}/>
     </>
   );
 }

@@ -2,9 +2,11 @@ import { Href, router, usePathname } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Rect, Path } from "react-native-svg";
+import { RecordEntry } from '../context/RecordProvider';
 
 interface Props {
-  setOpen: (value: boolean) => void;
+ setOpen: (open: boolean, record?: RecordEntry) => void;
+
 }
 
 export default function Header({setOpen} : Props) {
@@ -18,7 +20,7 @@ export default function Header({setOpen} : Props) {
   return (
     <View style={styles.header}>
           <Text style={styles.centered}>Progress Photos</Text>
-          <Pressable style={styles.plusContainer} onPress={() => setOpen(true)}>
+          <Pressable style={styles.plusContainer} onPress={() => setOpen(true, undefined)}>
             <Text style={styles.clickableText}>+</Text>
           </Pressable>
           <View style={styles.buttonContainer}>

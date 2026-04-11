@@ -12,7 +12,12 @@ export default function Index() {
     const { records, addRecord } = useRecords();
 
     const [open, setOpen] = useState(false);
+    const [editRecord, setEditRecord] = useState<RecordEntry | undefined>(undefined);
     
+    function toggleAddRecord(open : boolean, record : RecordEntry | undefined) {
+        setEditRecord(record);
+        setOpen(open);
+    }
 
     const groupedRecords = records.reduce((acc, record) => {
         const date = new Date(record.date);
@@ -30,7 +35,7 @@ export default function Index() {
 
   return (
     <>
-        <Header setOpen={setOpen}/>
+        <Header setOpen={toggleAddRecord}/>
         <ScrollView showsVerticalScrollIndicator={false}>
             {Object.entries(groupedRecords).map(([key, recordsInMonth]) => {
                 const [year, month] = key.split("-");
@@ -39,7 +44,7 @@ export default function Index() {
                 return (
                     <ListContainer date={date} key={key}>
                     {recordsInMonth.map(record =>
-                        <ListItem record={record} key={record.id} />
+                        <ListItem setOpen={toggleAddRecord} record={record} key={record.id} />
                         
                     )}
                     </ListContainer>
@@ -50,7 +55,7 @@ export default function Index() {
         <Modal visible={open} transparent animationType="slide">
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}>
-                    <AddRecordPanel setOpen={setOpen} initialRecord={undefined} />
+                    <AddRecordPanel setOpen={setOpen} initialRecord={editRecord} />
                 </View>
             </View>
         </Modal>
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     backgroundColor: "rgba(0,0,0,0.5)",
   },
-  
+
   modalContent: {
     backgroundColor: "#111",
     borderTopLeftRadius: 20,

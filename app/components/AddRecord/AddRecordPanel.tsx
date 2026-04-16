@@ -5,11 +5,19 @@ import { RecordEntry, ViewType } from '@/app/context/RecordProvider'
 import Svg, { Path } from 'react-native-svg';
 import { pickImageFromLibrary } from '@/app/utils/imagePick';
 import AddRecordImageUploader from './AddRecordImageUploader';
+import { saveRecordExtern } from '@/app/utils/SaveImagesExtern';
+
 
 interface Props {
   initialRecord: RecordEntry | undefined;
- setOpen: (record: boolean) => void;
- // updateRecord: (record: RecordEntry) => void;
+  setOpen: (record: boolean) => void;
+  // updateRecord: (record: RecordEntry) => void;
+}
+
+function saveRecord(draft : RecordEntry) {
+  saveRecordExtern(draft);
+
+  console.log("Uploading record draft: " + draft)
 }
 
 export default function AddRecordPanel({initialRecord, setOpen} : Props) {
@@ -35,7 +43,7 @@ export default function AddRecordPanel({initialRecord, setOpen} : Props) {
 
         <AddRecordImageUploader draftRecord={draftRecord} setDraftRecord={setDraftRecord}/>
 
-        <Pressable>
+        <Pressable onPress={() => saveRecord(draftRecord)}>
           <View style={styles.saveButton}>
             <Text style={styles.saveText}>Save</Text>
           </View>

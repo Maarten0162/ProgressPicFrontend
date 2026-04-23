@@ -22,12 +22,14 @@ function saveRecord(draft : RecordEntry) {
 
 export default function AddRecordPanel({initialRecord, setOpen} : Props) {
   
+  const uuid = "f004d522-ea12-4f7e-9731-d03f2043d730" 
+
   const createEmptyRecord = (): RecordEntry => ({
     id: undefined,
     images: [],
     createdAt: new Date().toISOString(),
     date: new Date().toISOString(),
-    userUUID: "",
+    userUUID: uuid,
   });
 
   const [draftRecord, setDraftRecord] = useState<RecordEntry>(() => {

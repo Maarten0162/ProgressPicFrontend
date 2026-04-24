@@ -22,7 +22,7 @@ export default function ListItem({record, setOpen} : Props) {
       
       <View style={styles.imagesContainer}>
         {record.images.map((image, i )=>
-            <Image source={{ uri: image.imageUrl }} style={i === 0 ? styles.image : styles.imageLeft}/> 
+            <Image source={{ uri: image.imageUrl }} key={image.id + "-image"} style={i === 0 ? styles.image : styles.imageLeft}/> 
         )}
       </View>
 

@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RecordsProvider } from "./context/RecordProvider";
+import React from "react";
 
 export default function RootLayout() {
   return (

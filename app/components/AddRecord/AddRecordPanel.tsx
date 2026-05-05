@@ -56,44 +56,14 @@ export default function AddRecordPanel({initialRecord, setOpen} : Props) {
 
 const styles = StyleSheet.create({
   containter: {
-    justifyContent: "space-between"
-  },
-  squareContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
-  },
-  square: {
-    backgroundColor: "transparent",
-    borderRadius: 15,
-    width: "15%",
-    aspectRatio: 1/1,
-  },
-  imageSquare: {
-    backgroundColor: "transparent",
-    borderRadius: 15,
-    borderColor: "#080808",
-    borderWidth: 2,
-    aspectRatio: 1/1,
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    overflow: "hidden"
-
-  },
-  imageText :{
-    color: "white",
-    alignSelf: "center",
-    marginBottom: 5
-  },
-  image: {
-    width: "100%",
-    aspectRatio: 1/1,
+    justifyContent: "space-between",
+    
   },
   saveButton: {
     backgroundColor: "white",
     width: "95%",
-    margin: 20,
+    marginTop: 50,
+    marginBottom: 20,
     alignSelf: "center",
     borderRadius: 15,
     padding: 25

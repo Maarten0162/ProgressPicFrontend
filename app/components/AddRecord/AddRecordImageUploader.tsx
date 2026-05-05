@@ -1,7 +1,7 @@
 import { RecordEntry, ViewType } from '@/app/context/RecordProvider';
 import { pickImageFromLibrary } from '@/app/utils/imagePick';
 import React from 'react'
-import { View, Text, Pressable, Image, StyleSheet } from 'react-native';
+import { View, Text, Pressable, Image, StyleSheet, Platform } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 
@@ -52,10 +52,10 @@ export default function AddRecordImageUploader({draftRecord, setDraftRecord} : P
                   const image = draftRecord.images.find(img => img.type === item.type);
     
                   return (
-                    <View key={item.type} style={styles.square}>
+                    <View key={item.type} style={Platform.OS === "web" ? styles.square : styles.squareAndroid}>
                       <Text style={styles.imageText}>{item.label}</Text>
                       <Pressable onPress={() => pickImage(item.type)}>
-                        <View style={styles.imageSquare}>
+                        <View style={Platform.OS === "web" ? styles.imageSquare : styles.imageSquareAndroid}>
                           {image?.imageUrl ? (
                             <Image
                               style={styles.image}
@@ -79,12 +79,12 @@ export default function AddRecordImageUploader({draftRecord, setDraftRecord} : P
 
 const styles = StyleSheet.create({
   containter: {
-    justifyContent: "space-between"
+    justifyContent: "space-around"
   },
   squareContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
+    justifyContent: "space-between",
+    paddingVertical: 10
   },
   square: {
     backgroundColor: "transparent",
@@ -92,7 +92,25 @@ const styles = StyleSheet.create({
     width: "15%",
     aspectRatio: 1/1,
   },
+  squareAndroid: {
+    backgroundColor: "transparent",
+    borderRadius: 15,
+    width: "30%",
+    aspectRatio: 1/1,
+  },
   imageSquare: {
+    backgroundColor: "transparent",
+    borderRadius: 15,
+    borderColor: "#080808",
+    borderWidth: 2,
+    aspectRatio: 1/1,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    overflow: "hidden"
+
+  },
+  imageSquareAndroid: {
     backgroundColor: "transparent",
     borderRadius: 15,
     borderColor: "#080808",

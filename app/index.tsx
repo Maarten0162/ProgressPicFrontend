@@ -67,17 +67,17 @@ const styles = StyleSheet.create({
   Container: {
     padding: 20,
   },
-
   modalOverlay: {
     flex: 1,
     justifyContent: "flex-end",
     backgroundColor: "rgba(0,0,0,0.5)",
   },
-
   modalContent: {
     backgroundColor: "#111",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20,
+    paddingTop: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
   },
 });

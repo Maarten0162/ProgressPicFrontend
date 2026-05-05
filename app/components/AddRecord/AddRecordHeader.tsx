@@ -59,15 +59,15 @@ export default function AddRecordHeader( {setOpenUpload} : Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "auto",
     justifyContent: "space-between",
     alignItems: "center",
-    flexDirection: "row"
-    
+    flexDirection: "row",
+    marginBottom: 20,
   },
   dateText: {
     fontSize: 18,
-    color: "white"
+    color: "#ffffff",
   },
   overlay: {
     flex: 1,

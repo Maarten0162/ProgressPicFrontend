@@ -3,33 +3,24 @@ import { Image, Platform, Pressable, StyleSheet, Text, View } from 'react-native
 import CompareSettBar from './components/CompareSettBar'
 import ImageCarousel from './components/ImageCarousel'
 import SegmentedControl from './components/SegmentedControll/SegmentedControl'
-import { RecordEntry } from './context/RecordProvider'
+import { RecordEntry, ViewType } from './context/RecordProvider'
 import { useRecords } from './hooks/useRecords'
-import { ViewType } from './context/RecordProvider'
 import Svg, { Path } from 'react-native-svg'
-import { Href, router, usePathname } from 'expo-router'
-import { useLocalSearchParams } from "expo-router";
+import { Href, router, usePathname, useLocalSearchParams } from 'expo-router'
 
-export default function comparePage() {
+export default function ComparePage() {
   const { records } = useRecords();
   const { multiviewParam } = useLocalSearchParams();
   
   const [viewType, setViewType] = useState<ViewType>("FRONT");
   const [Multiview, toggleMultiview] = useState(multiviewParam === "true");
   const [SelectedImageIndex, setSelectedImageIndex] = useState<0 | 1>(0);
-
-
-  
-
-  const images = records.flatMap(record =>
-    record.images.filter(img => img.type === viewType)
-  );
   
   const [SelectedImageOne, setSelectedImageOne] = useState<RecordEntry | null>(null);
   const [SelectedImageTwo, setSelectedImageTwo] = useState<RecordEntry | null>(null);
 
   function setSelectedImage(record : RecordEntry) {
-    if (SelectedImageIndex == 0 || !Multiview) {
+    if (SelectedImageIndex === 0 || !Multiview) {
       setSelectedImageOne(record);
     } else setSelectedImageTwo(record);
   }
@@ -80,7 +71,7 @@ export default function comparePage() {
                 "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
                 }} 
 
-                style={SelectedImageIndex == 0 ? styles.selectedMultiImage : styles.multiImage}
+                style={SelectedImageIndex === 0 ? styles.selectedMultiImage : styles.multiImage}
               />
             </Pressable>
             <View>
@@ -109,7 +100,7 @@ export default function comparePage() {
                 "https://dummyimage.com/400/aaaaaa/ffffff&text=No+Image",
                 }} 
 
-                style={SelectedImageIndex == 1 ? styles.selectedMultiImage : styles.multiImage}
+                style={SelectedImageIndex === 1 ? styles.selectedMultiImage : styles.multiImage}
               />
             </Pressable>
             <View>

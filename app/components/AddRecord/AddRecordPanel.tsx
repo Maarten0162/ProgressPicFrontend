@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Image, Pressable } from 'react-native'
+import { StyleSheet, View, Text, Pressable } from 'react-native'
 import AddRecordHeader from './AddRecordHeader'
-import { RecordEntry, ViewType } from '@/app/context/RecordProvider'
-import Svg, { Path } from 'react-native-svg';
-import { pickImageFromLibrary } from '@/app/utils/imagePick';
+import { RecordEntry } from '@/app/context/RecordProvider'
 import AddRecordImageUploader from './AddRecordImageUploader';
 import { saveRecordExtern } from '@/app/utils/SaveImagesExtern';
 

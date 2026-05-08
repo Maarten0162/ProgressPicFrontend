@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import ListItem from './ListItem'
 
 interface Props {
   children: ReactNode;

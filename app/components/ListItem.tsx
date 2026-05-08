@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, StyleSheet, View, Image, Pressable } from 'react-native'
-import Svg, { Rect, Path } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 import { RecordEntry } from '../context/RecordProvider';
 
 

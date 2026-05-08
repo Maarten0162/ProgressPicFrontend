@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, Modal, StyleSheet } from "react-native";
-import { Calendar } from "react-native-calendars";
 import CustomCalendar from "./CustomCalendar";
 import Svg, { Path } from "react-native-svg";
 

@@ -8,6 +8,8 @@ export const saveRecordExtern = async (record: RecordEntry) => {
 
   formData.append("userUUID", record.userUUID);
 
+  console.log(BACKEND_ENDPOINT);
+
   const map: Record<string, string> = {
     FRONT: "front",
     SIDE: "side",

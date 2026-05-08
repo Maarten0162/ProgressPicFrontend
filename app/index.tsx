@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, Alert, StyleSheet, Button, ScrollView, Modal } from 'react-native';
-import Header from './components/header';
+import { View, StyleSheet, ScrollView, Modal } from 'react-native';
+import Header from './components/Header';
 import ListItem from './components/ListItem';
 import ListContainer from './components/ListContainer';
 import { useRecords } from './hooks/useRecords';
@@ -9,7 +9,7 @@ import AddRecordPanel from './components/AddRecord/AddRecordPanel';
 
 export default function Index() {
 
-    const { records, addRecord } = useRecords();
+    const { records } = useRecords();
 
     const [open, setOpen] = useState(false);
     const [editRecord, setEditRecord] = useState<RecordEntry | undefined>(undefined);

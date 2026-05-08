@@ -4,7 +4,7 @@ import { Image, ScrollView, Text, View } from "react-native";
 import { RecordEntry } from "../context/RecordProvider";
 
 
-export default function index() {
+export default function Index() {
   const [progressEntries, setProgressEntries] = useState<RecordEntry[]>([]);
   const [loading, setLoading] = useState(true);
 

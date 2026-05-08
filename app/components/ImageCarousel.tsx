@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { ScrollView, Image, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 interface Props {
   children: ReactNode;

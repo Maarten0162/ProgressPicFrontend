@@ -1,7 +1,7 @@
-import { Href, router, usePathname } from 'expo-router';
+import { router } from 'expo-router';
 import React from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
-import Svg, { Rect, Path } from "react-native-svg";
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Svg, { Path } from "react-native-svg";
 import { RecordEntry } from '../context/RecordProvider';
 
 interface Props {
@@ -10,13 +10,7 @@ interface Props {
 }
 
 export default function Header({setOpen} : Props) {
-    const pathname = usePathname();
     
-      function changePage(pageString: Href) {
-        if (pathname !== pageString) {
-          router.push(pageString);
-        }
-      }
   return (
     <View style={styles.header}>
           <Text style={styles.centered}>Progress Photos</Text>

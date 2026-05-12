@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { BACKEND_ENDPOINT } from '@env';
-import { RecordEntry } from '../context/RecordProvider';
+import axios from 'axios';
 import { Platform } from 'react-native';
+import { RecordEntry } from '../context/RecordProvider';
 
 export const saveRecordExtern = async (record: RecordEntry) => {
   const formData = new FormData();
@@ -38,8 +38,8 @@ export const saveRecordExtern = async (record: RecordEntry) => {
   const isUpdate = !!record.id;
 
   const url = isUpdate
-    ? `http://localhost:8080/api/record/${record.id}`
-    : `http://localhost:8080/api/record`;
+    ? `https://progresspicbackend.onrender.com/api/record/${record.id}`
+    : `https://progresspicbackend.onrender.com/api/record`;
 
   const res = await axios({
     url,

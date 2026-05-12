@@ -10,7 +10,7 @@ export default function Index() {
 
   const fetchProgressEntries = async (): Promise<RecordEntry[]> => {
   const response = await axios.get<RecordEntry[]>(
-    "http://localhost:8080/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
+    "https://progresspicbackend.onrender.com/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
   );
   return response.data;
 };

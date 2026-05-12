@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Modal } from 'react-native';
-import Header from './components/Header';
+import Header from './components/header';
 import ListItem from './components/ListItem';
 import ListContainer from './components/ListContainer';
 import { useRecords } from './hooks/useRecords';

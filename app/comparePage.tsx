@@ -208,20 +208,20 @@ const styles = StyleSheet.create({
     margin: 20
   },
   selectedMultiImage: {
-    width: Platform.OS === "web" ? 250 : "40%",
+    width: Platform.OS === "web" ? 250 : "55%",
     aspectRatio: 1,
-    borderRadius: Platform.OS === "web" ? 15 : 45,
+    borderRadius: Platform.OS === "web" ? 15 : 15,
     borderColor: "lightgray",
-    borderWidth: 4,
-    margin: 10
+    borderWidth: Platform.OS === "web" ? 4 : 2,
+    margin: Platform.OS === "web" ? 10 : "0%"
   },
   multiImage: {
-    width: Platform.OS === "web" ? 250 : "40%",
+    width: Platform.OS === "web" ? 250 : "55%",
     aspectRatio: 1,
-    borderRadius: Platform.OS === "web" ? 15 : 45,
+    borderRadius: Platform.OS === "web" ? 15 : 15,
     borderColor: "transparent",
-    borderWidth: 4,
-    margin: 10
+    borderWidth: Platform.OS === "web" ? 4 : 2,
+    margin: Platform.OS === "web" ? 10 : "0%"
   },
   dateText: {
     fontSize: 24,

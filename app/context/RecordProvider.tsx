@@ -104,7 +104,7 @@ export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const fetchRecords = async () => {
     try {
       const response = await axios.get<RecordEntry[]>(
-        "http://localhost:8080/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
+        "https://progresspicbackend.onrender.com/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
       );
       setRecords(response.data)
       // setRecords(tempRecords.sort((a, b) => {

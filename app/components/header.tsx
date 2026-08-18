@@ -33,6 +33,16 @@ export default function Header({setOpen} : Props) {
                     <Text style={styles.buttonText}>Compare Before & After</Text>
                 </View>
             </Pressable>
+
+            <Pressable onPress={() => router.push({pathname: "/feed"})}>
+                <View style={styles.button}>
+                 
+                <Svg fill="none" viewBox="0 0 24 24" id="Forum-Fill--Streamline-Rounded-Fill-Material" height="20" width="20">
+                    <Path fill="#ffffff" d="M7.025 18c-0.23335 0 -0.4625 -0.11665 -0.6875 -0.35 -0.225 -0.23335 -0.3375 -0.46665 -0.3375 -0.7V14.5h12.5V6h2.5c0.23335 0 0.45835 0.11665 0.675 0.35 0.21665 0.23335 0.325 0.475 0.325 0.725v13.1c0 0.33335 -0.15415 0.5625 -0.4625 0.6875s-0.57915 0.07085 -0.8125 -0.1625l-2.7 -2.7h-11ZM6 13l-2.725 2.725c-0.233335 0.23335 -0.504165 0.2875 -0.8125 0.1625C2.154165 15.7625 2 15.53335 2 15.2V3.05c0 -0.233335 0.108335 -0.466665 0.325 -0.7 0.216665 -0.233335 0.441665 -0.35 0.675 -0.35h12.975c0.25 0 0.48335 0.1125 0.7 0.3375 0.21665 0.225 0.325 0.4625 0.325 0.7125v8.9c0 0.23335 -0.10835 0.46665 -0.325 0.7 -0.21665 0.23335 -0.45 0.35 -0.7 0.35H6Z" strokeWidth="0.5"></Path>
+                </Svg>
+                    <Text style={styles.buttonText}>Open Feed</Text>
+                </View>
+            </Pressable>
           </View>
         </View>
   )

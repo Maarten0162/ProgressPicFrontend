@@ -54,7 +54,7 @@ export default function AddRecordImageUploader({draftRecord, setDraftRecord} : P
                   return (
                     <View key={item.type} style={Platform.OS === "web" ? styles.square : styles.squareAndroid}>
                       <Text style={styles.imageText}>{item.label}</Text>
-                      <Pressable onPress={() => pickImage(item.type)}>
+                      <Pressable testID={`Upload-${item.type}-Button`} onPress={() => pickImage(item.type)}>
                         <View style={Platform.OS === "web" ? styles.imageSquare : styles.imageSquareAndroid}>
                           {image?.imageUrl ? (
                             <Image

@@ -4,15 +4,17 @@ import CustomCalendar from "./CustomCalendar";
 import Svg, { Path } from "react-native-svg";
 
 interface Props {
- setOpenUpload: (record: boolean) => void;
+  setOpenUpload: (record: boolean) => void;
+  setSelectedDate: (date : string) => void;
+  selectedDate: string;
+  today: string;
+
 }
 
-export default function AddRecordHeader( {setOpenUpload} : Props) {
+export default function AddRecordHeader( {setOpenUpload, setSelectedDate, selectedDate, today} : Props) {
 
-  const today = new Date().toISOString().split("T")[0];;
   
   
-  const [selectedDate, setSelectedDate] = useState<string>(today);
   const [open, setOpen] = useState(false);
 
   function toDateString (date : string) : string {
@@ -32,10 +34,13 @@ export default function AddRecordHeader( {setOpenUpload} : Props) {
             </Svg>
         </Pressable>
 
-      <Pressable onPress={() => setOpen(true)}>
+      <Pressable testID="Change-Date-Hypertext" onPress={() => setOpen(true)}>
         <View style={styles.dateContainer}>
             <Text style={styles.dateText}>
                 {selectedDate ? toDateString(selectedDate) : toDateString(today) }
+                </Text>
+                <Text  testID="Selected-Date-String" style={styles.hidden}>
+                {selectedDate}
                 </Text>
             <Svg fill="none" viewBox="0 0 24 24" id="Arrow-Drop-Down-Fill--Streamline-Rounded-Fill-Material" height="24" width="24">
                 <Path fill="white" d="m11.6 14.5999 -3.95 -3.925c-0.03335 -0.03335 -0.0625 -0.073 -0.0875 -0.119 -0.025 -0.04615 -0.0375 -0.0955 -0.0375 -0.148 0 -0.10535 0.0344 -0.1955 0.10325 -0.2705 0.06865 -0.075 0.15925 -0.1125 0.27175 -0.1125h8.2c0.1125 0 0.20315 0.03865 0.272 0.116 0.06865 0.07715 0.103 0.16725 0.103 0.27025 0 0.02585 -0.04165 0.11375 -0.125 0.26375l-3.95 3.925c-0.05 0.05 -0.10885 0.09165 -0.1765 0.125 -0.06765 0.03335 -0.14215 0.05 -0.2235 0.05 -0.08115 0 -0.15565 -0.01665 -0.2235 -0.05 -0.06765 -0.03335 -0.1265 -0.075 -0.1765 -0.125Z" strokeWidth="0.5"></Path>
@@ -79,6 +84,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 0,
     padding: 5,
+  },
+  hidden: {
+    display: 'none',
   },
   dateContainer: {
     flexDirection: "row"

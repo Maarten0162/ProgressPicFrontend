@@ -101,36 +101,30 @@ export const RecordsContext = createContext<RecordsContextType | undefined>(unde
 export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [records, setRecords] = useState<RecordEntry[]>([]);
 
-  const fetchRecords = async () => {
+  const refreshRecords = async () => {
     try {
       const response = await axios.get<RecordEntry[]>(
-        "https://progresspicbackend.onrender.com/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
+        "http://localhost:8080/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
       );
-      setRecords(response.data)
-      // setRecords(tempRecords.sort((a, b) => {
-      //   // Convert date strings to timestamps
-      //   const dateA = new Date(a.date).getTime();
-      //   const dateB = new Date(b.date).getTime();
-
-      //   // Descending: latest date first
-      //   return dateB - dateA;
-      // }));
+      
+      setRecords(response.data);
     } catch (error) {
       console.error("Failed to fetch records", error);
     }
   };
 
   useEffect(() => {
-    fetchRecords();
+    refreshRecords();
   }, []);
-
 
   const addRecord = (record: RecordEntry) => {
     setRecords(prev => [...prev, record]);
   };
 
   const updateRecord = (record: RecordEntry) => {
-    setRecords(prev => prev.map(r => (r.id === record.id ? record : r)));
+    setRecords(prev =>
+      prev.map(r => r.id === record.id ? record : r)
+    );
   };
 
   const deleteRecord = (id: number) => {
@@ -142,7 +136,7 @@ export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({ child
     addRecord,
     updateRecord,
     deleteRecord,
-    refreshRecords: fetchRecords,
+    refreshRecords,
   }), [records]);
 
   return (

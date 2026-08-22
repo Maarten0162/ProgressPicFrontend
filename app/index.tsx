@@ -9,7 +9,7 @@ import AddRecordPanel from './components/AddRecord/AddRecordPanel';
 
 export default function Index() {
 
-    const { records } = useRecords();
+    const { records, refreshRecords } = useRecords();
 
     const [open, setOpen] = useState(false);
     const [editRecord, setEditRecord] = useState<RecordEntry | undefined>(undefined);
@@ -18,7 +18,7 @@ export default function Index() {
         setEditRecord(record);
         setOpen(open);
     }
-
+    
     const groupedRecords = records.reduce((acc, record) => {
         const date = new Date(record.date);
 
@@ -55,7 +55,7 @@ export default function Index() {
         <Modal visible={open} transparent animationType="slide">
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}>
-                    <AddRecordPanel setOpen={setOpen} initialRecord={editRecord} />
+                    <AddRecordPanel setOpen={setOpen} refreshRecords={refreshRecords} initialRecord={editRecord} />
                 </View>
             </View>
         </Modal>

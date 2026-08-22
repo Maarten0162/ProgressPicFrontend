@@ -7,8 +7,10 @@ export const saveRecordExtern = async (record: RecordEntry) => {
   const formData = new FormData();
 
   formData.append("userUUID", record.userUUID);
+  formData.append("date", record.date);
 
   console.log(BACKEND_ENDPOINT);
+  console.log(record.date);
 
   const map: Record<string, string> = {
     FRONT: "front",
@@ -38,8 +40,8 @@ export const saveRecordExtern = async (record: RecordEntry) => {
   const isUpdate = !!record.id;
 
   const url = isUpdate
-    ? `https://progresspicbackend.onrender.com/api/record/${record.id}`
-    : `https://progresspicbackend.onrender.com/api/record`;
+    ? `http://localhost:8080/api/record/${record.id}`
+    : `http://localhost:8080/api/record`;
 
   const res = await axios({
     url,

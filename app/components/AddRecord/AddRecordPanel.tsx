@@ -9,24 +9,48 @@ import { saveRecordExtern } from '@/app/utils/SaveImagesExtern';
 interface Props {
   initialRecord: RecordEntry | undefined;
   setOpen: (record: boolean) => void;
-  // updateRecord: (record: RecordEntry) => void;
-}
-
-function saveRecord(draft : RecordEntry) {
-  saveRecordExtern(draft);
-
-  console.log("Uploading record draft: " + draft)
-}
-
-export default function AddRecordPanel({initialRecord, setOpen} : Props) {
+  refreshRecords: () => void;
   
-  const uuid = "f004d522-ea12-4f7e-9731-d03f2043d730" 
+}
+
+
+
+export default function AddRecordPanel({initialRecord, setOpen, refreshRecords} : Props) {
+ 
+  const uuid = "f004d522-ea12-4f7e-9731-d03f2043d730"
+  const today = new Date().toISOString().split("T")[0];
+  
+  const [selectedDate, setSelectedDate] = useState<string>(today);
+  
+  function setDate(date : string) {
+    setSelectedDate(date);
+    draftRecord.date = date;
+  }
+  
+  
+  async function saveRecord(draft: RecordEntry) {
+      try {
+        await saveRecordExtern(draft);
+
+        console.log("Record uploaded successfully");
+
+        await refreshRecords()
+        console.log("refreshed Records successfully");
+
+
+        // Close the panel after successful upload
+        setOpen(false);
+      } catch (error) {
+        console.error("Failed to upload record:", error);
+      }
+  }
+
 
   const createEmptyRecord = (): RecordEntry => ({
     id: undefined,
     images: [],
-    createdAt: new Date().toISOString(),
-    date: new Date().toISOString(),
+    createdAt: new Date().toISOString().split("T")[0],
+    date: new Date().toISOString().split("T")[0],
     userUUID: uuid,
   });
 
@@ -39,11 +63,11 @@ export default function AddRecordPanel({initialRecord, setOpen} : Props) {
 
   return (
     <View style={styles.containter}>
-        <AddRecordHeader setOpenUpload={setOpen}/>
+        <AddRecordHeader setSelectedDate={setDate} selectedDate={selectedDate} today={today} setOpenUpload={setOpen}/>
 
         <AddRecordImageUploader draftRecord={draftRecord} setDraftRecord={setDraftRecord}/>
 
-        <Pressable onPress={() => saveRecord(draftRecord)}>
+        <Pressable testID='Save-Record-Button' onPress={() => saveRecord(draftRecord)}>
           <View style={styles.saveButton}>
             <Text style={styles.saveText}>Save</Text>
           </View>

@@ -1,5 +1,7 @@
-import axios from "axios";
+
 import React, { createContext, useEffect, useMemo, useState } from "react";
+import api, { getUserCreds } from "../api/api";
+import { useAuth } from "./AuthContext";
 
 
 
@@ -100,22 +102,27 @@ export const RecordsContext = createContext<RecordsContextType | undefined>(unde
 
 export const RecordsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [records, setRecords] = useState<RecordEntry[]>([]);
+  const { token, loading } = useAuth();
 
   const refreshRecords = async () => {
     try {
-      const response = await axios.get<RecordEntry[]>(
-        "http://localhost:8080/api/record/f004d522-ea12-4f7e-9731-d03f2043d730"
-      );
+
+        const creds = await getUserCreds();
+        const response = await api.get<RecordEntry[]>('api/record/' + creds?.sub);
+        setRecords(response.data);
+
       
-      setRecords(response.data);
+      
     } catch (error) {
       console.error("Failed to fetch records", error);
     }
   };
 
   useEffect(() => {
-    refreshRecords();
-  }, []);
+      if (!loading && token) {
+          refreshRecords();
+      }
+  }, [loading, token]);
 
   const addRecord = (record: RecordEntry) => {
     setRecords(prev => [...prev, record]);

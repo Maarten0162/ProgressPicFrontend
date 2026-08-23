@@ -1,7 +1,8 @@
 import { BACKEND_ENDPOINT } from '@env';
-import axios from 'axios';
 import { Platform } from 'react-native';
 import { RecordEntry } from '../context/RecordProvider';
+import api from '../api/api';
+
 
 export const saveRecordExtern = async (record: RecordEntry) => {
   const formData = new FormData();
@@ -40,14 +41,14 @@ export const saveRecordExtern = async (record: RecordEntry) => {
   const isUpdate = !!record.id;
 
   const url = isUpdate
-    ? `http://localhost:8080/api/record/${record.id}`
-    : `http://localhost:8080/api/record`;
+    ? `/api/record/${record.id}`
+    : `/api/record`;
 
-  const res = await axios({
+  const res = await api({
     url,
     method: isUpdate ? "put" : "post",
     data: formData,
-  });
+  })
 
   return res.data;
 };

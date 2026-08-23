@@ -3,6 +3,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import { RecordEntry } from '../context/RecordProvider';
+import { Login, LoginRequest } from '../utils/Login';
 
 interface Props {
  setOpen: (open: boolean, record?: RecordEntry) => void;
@@ -10,6 +11,12 @@ interface Props {
 }
 
 export default function Header({setOpen} : Props) {
+
+  async function login(credentials : LoginRequest) {
+    const response = await Login(credentials);
+    const token = response.data;
+    await localStorage.setItem("token", token);
+  }
     
   return (
     <View style={styles.header}>

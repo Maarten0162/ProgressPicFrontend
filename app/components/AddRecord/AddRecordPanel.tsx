@@ -4,6 +4,7 @@ import AddRecordHeader from './AddRecordHeader'
 import { RecordEntry } from '@/app/context/RecordProvider'
 import AddRecordImageUploader from './AddRecordImageUploader';
 import { saveRecordExtern } from '@/app/utils/SaveImagesExtern';
+import { getUserCreds } from '@/app/api/api';
 
 
 interface Props {
@@ -13,11 +14,29 @@ interface Props {
   
 }
 
+export function getUserUUIDFromToken(): string | null {
+  const token = localStorage.getItem("token");
 
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.sub ?? null;
+  } catch {
+    return null;
+  }
+}
 
 export default function AddRecordPanel({initialRecord, setOpen, refreshRecords} : Props) {
  
-  const uuid = "f004d522-ea12-4f7e-9731-d03f2043d730"
+  const uuid = getUserUUIDFromToken();
+
+  if (!uuid) {
+    throw new Error("No authenticated user UUID found");
+  }
+
   const today = new Date().toISOString().split("T")[0];
   
   const [selectedDate, setSelectedDate] = useState<string>(today);

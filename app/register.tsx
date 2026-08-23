@@ -19,7 +19,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    async function handleLogin() {
+    async function handleRegister() {
         if (!email || !password) {
             Alert.alert("Missing information", "Please enter your email and password.");
             return;
@@ -28,23 +28,29 @@ export default function Login() {
         try {
             setIsLoading(true);
                 
-            const response = await api.post('/api/auth/login',
+            const response = await api.post('/api/auth/register',
                 {
                     email,
                     password,
                 }
             );
 
-            await login(response.data);
+            const LoginResponse = await api.post('/api/auth/login',
+                {
+                    email,
+                    password,
+                }
+            );
+
+            await login(LoginResponse.data);//auto login after acc creation
 
         } catch (error) {
             Alert.alert(
-                "Login failed",
-                "Your email or password is incorrect."
+                "Failed to create account"
             );
         } finally {
             setIsLoading(false);
-            router.push('/');
+            router.push('/')
         }
     }
 
@@ -86,21 +92,21 @@ export default function Login() {
                             styles.loginButton,
                             isLoading && styles.disabledButton,
                         ]}
-                        onPress={handleLogin}
+                        onPress={handleRegister}
                         disabled={isLoading}
                     >
                         <Text style={styles.loginButtonText}>
-                            {isLoading ? "Logging in..." : "Login"}
+                            {isLoading ? "Creating Account..." : "Register"}
                         </Text>
                     </Pressable>
 
                     <View>
                         <Text style={styles.Pressablelabel}>
-                            Don't have an account yet?
+                            Already a user?
                         </Text>
-                        <Pressable onPress={() => router.push('/register')}>
+                        <Pressable onPress={() => router.push('/login')}>
                             <Text style={styles.PressablelabelBold}>
-                                Click here to Register!
+                                Click here to login!
                             </Text>
                         </Pressable>
                     </View>

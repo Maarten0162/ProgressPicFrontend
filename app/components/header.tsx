@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import { RecordEntry } from '../context/RecordProvider';
 import { Login, LoginRequest } from '../utils/Login';
+import { useAuth } from '../context/AuthContext';
 
 interface Props {
  setOpen: (open: boolean, record?: RecordEntry) => void;
@@ -12,19 +13,27 @@ interface Props {
 
 export default function Header({setOpen} : Props) {
 
+  const { logout } = useAuth();
+
   async function login(credentials : LoginRequest) {
     const response = await Login(credentials);
     const token = response.data;
     await localStorage.setItem("token", token);
   }
+
+  function logoutSignedInUser() {
+    logout();
+    console.log('signed out user... redirecting')
+    router.push('/login')
+  }
     
   return (
     <View style={styles.header}>
-        <Pressable style={styles.accountContainer} onPress={() => console.log('To be implemented')}>
+        <Pressable style={styles.accountContainer} onPress={() => logoutSignedInUser()}>
           <Svg fill="none" viewBox="0 0 24 24" id="Account-Circle-Fill--Streamline-Rounded-Fill-Material" height="32" width="32">
             <Path fill="#ffffff" d="M5.55 17.625c1.05 -0.66665 2.0875 -1.17085 3.1125 -1.5125S10.8 15.6 12 15.6c1.2 0 2.31665 0.17085 3.35 0.5125 1.03335 0.34165 2.075 0.84585 3.125 1.5125 0.73335 -0.9 1.25415 -1.80835 1.5625 -2.725 0.30835 -0.91665 0.4625 -1.88335 0.4625 -2.9 0 -2.41665 -0.8125 -4.4375 -2.4375 -6.0625S14.41665 3.5 12 3.5s-4.4375 0.8125 -6.0625 2.4375S3.5 9.58335 3.5 12c0 1.01665 0.158335 1.98335 0.475 2.9s0.841665 1.825 1.575 2.725Zm6.44525 -4.875c-0.9635 0 -1.7744 -0.33075 -2.43275 -0.99225 -0.65835 -0.66135 -0.9875 -1.47385 -0.9875 -2.4375 0 -0.9635 0.33075 -1.7744 0.99225 -2.43275 0.66135 -0.65835 1.47385 -0.9875 2.4375 -0.9875 0.9635 0 1.7744 0.33075 2.43275 0.99225 0.65835 0.66135 0.9875 1.47385 0.9875 2.4375 0 0.9635 -0.33075 1.7744 -0.99225 2.43275 -0.66135 0.65835 -1.47385 0.9875 -2.4375 0.9875ZM11.99 22c-1.38585 0 -2.68815 -0.2625 -3.907 -0.7875 -1.21885 -0.525 -2.279 -1.24165 -3.1805 -2.15 -0.901665 -0.90835 -1.610835 -1.9695 -2.1275 -3.1835C2.258335 14.665 2 13.36785 2 11.9875s0.2625 -2.6775 0.7875 -3.8915c0.525 -1.214 1.241665 -2.271 2.15 -3.171 0.90835 -0.9 1.9695 -1.6125 3.1835 -2.1375C9.335 2.2625 10.63215 2 12.0125 2s2.6775 0.2625 3.8915 0.7875c1.214 0.525 2.271 1.2375 3.171 2.1375 0.9 0.9 1.6125 1.95835 2.1375 3.175C21.7375 9.31665 22 10.6144 22 11.99325c0 1.379 -0.2625 2.67485 -0.7875 3.8875 -0.525 1.21285 -1.2375 2.2734 -2.1375 3.18175 -0.9 0.90835 -1.9594 1.625 -3.17825 2.15C14.6779 21.7375 13.37565 22 11.99 22Z" strokeWidth="0.5"></Path>
           </Svg>
-          <Text style={styles.accountText}>Sign In</Text>
+          <Text style={styles.accountText}>Log Out</Text>
         </Pressable>
 
           <Text style={styles.centered}>Progress Photos</Text>

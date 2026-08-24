@@ -10,8 +10,10 @@ import {
 import Header from "./components/header";
 import { stompClient } from "./services/stompClient";
 import { RecordEntry } from "./context/RecordProvider";
+import api from "./api/api";
+import PostCard from "./components/postCard";
 
-type FeedMessage = {
+export type FeedMessage = {
     postId: string;
     creatorId: string;
     beforeImageUrl: string;
@@ -95,10 +97,14 @@ export default function Feed() {
 
             return;
         }
-
-        stompClient.publish({
-            destination: "/app/test",
-            body: "Hello from Expo!",
+        
+        api.post('/api/post/create', {
+            creatorId: "9f5f75c6-9476-4cdf-ba2b-26f870937c86",
+            beforeImageUrl: "https://picsum.photos/id/237/200/",
+            afterImageUrl: "https://picsum.photos/id/250/200/",
+            beforeDate: "2025-01-01T00:00:00Z",
+            afterDate: "2026-08-18T00:00:00Z",
+            caption: "My progress!"
         });
     }
 
@@ -156,13 +162,9 @@ export default function Feed() {
                         style={styles.messageCard}
                     >
 
-                        <Text style={styles.messageLabel}>
-                            WebSocket message
-                        </Text>
+                        <PostCard post={message}>
 
-                        <Text style={styles.messageText}>
-                            {message.caption}
-                        </Text>
+                        </PostCard>
 
                     </View>
 
